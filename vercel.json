@@ -1,11 +1,18 @@
 {
-  "buildCommand": "",
-  "outputDirectory": ".",
-  "public": true,
-  "rewrites": [
+  "builds": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "index.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)\\.(js|css|jpeg|jpg|png|gif|ico|svg|woff|woff2|ttf|eot)$",
+      "dest": "/$1.$2"
+    },
+    {
+      "src": "/(?!.*\\.[^/]+$)",
+      "dest": "/index.html"
     }
   ]
 }
