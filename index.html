@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TODAY</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Nunito:wght@400;600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        /* GERAL E RESET */
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #fff;
+            color: #111827;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+
+        main {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .invisible {
+            display: none;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .esconder {
+            display: none;
+        }
+
+        /* TODAY HEADER */
+
+        .today-header {
+            font-family: 'Nunito', Arial, Helvetica, sans-serif;
+            background-color: #fff;
+            border-bottom: 1px solid #e5e7eb;
+            position: relative;
+        }
+
+        .today-header-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 1rem;
+            height: 50px;
+        }
+
+        .today-header-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .today-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .today-logo-img {
+            height: 30px;
+            width: auto;
+        }
+
+        .today-nav {
+            display: none;
+            align-items: center;
+            gap: 1.75rem;
+        }
+
+        .today-nav span {
+            color: #333;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            padding: 0.5rem 0;
+            cursor: pointer;
+        }
+
+        .today-header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .today-search-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #333;
+            font-size: 1rem;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+
+        .today-search-btn:hover {
+            background-color: #f3f4f6;
+        }
+
+        .today-signin-btn {
+            display: none;
+            padding: 0.5rem 1rem;
+            color: #333;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        /* SEÃ‡ÃƒO HERO */
+
+        .hero-section {
+            font-family: 'Roboto', sans-serif;
+            padding: 0;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .breaking-news-badge {
+            display: inline-block;
+            color: #dc2626;
+            font-weight: bold;
+            font-size: 13px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            padding: 0.25rem 0.5rem;
+            background-color: rgba(220, 38, 38, 0.1);
+            border-radius: 0.25rem;
+        }
+
+        .hero-content h1 {
+            font-size: 1rem;
+            font-weight: bold;
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+            color: #374151;
+        }
+
+        .hero-content .subtitle {
+            font-size: 0.8rem;
+            color: #4b5563;
+            font-weight: 500;
+            line-height: 1.75;
+            margin-bottom: 0.25rem;
+        }
+
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: #4b5563;
+            margin-bottom: 0.5rem;
+        }
+
+        .article-meta span {
+            font-weight: bold;
+        }
+
+        .article-meta span:not(:first-child) {
+            font-weight: normal;
+        }
+
+        /* VÃDEO */
+
+        .video-container {
+            background-color: #f9fafb;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .video-header {
+            background-color: #dc2626;
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .video-header-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .video-header-left svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .video-header-left span {
+            font-weight: 600;
+        }
+
+        .watch-now-badge {
+            background-color: rgba(0, 0, 0, 0.3);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+        }
+
+        .video-player-wrapper {
+            padding: 1rem;
+        }
+
+        .smartplayer-container {
+            position: relative;
+            max-width: 1080px;
+            margin: auto;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+
+        vturb-smartplayer {
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .video-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #dc2626;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .live-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            background-color: #dc2626;
+            border-radius: 9999px;
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .recording-warning {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #dc2626;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .warning-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            background-color: #dc2626;
+            border-radius: 9999px;
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        /* SEÃ‡ÃƒO DE TAGS */
+
+        .tags-section {
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .tags-title {
+            color: #4b5563;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tags-title svg {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .tag {
+            background-color: #f3f4f6;
+            color: #1f2937;
+            font-size: 0.875rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            transition: background-color 0.2s;
+        }
+
+        .tag:hover {
+            background-color: #fff3e6;
+            color: #ff6b00;
+        }
+
+        /* SEÃ‡ÃƒO DE PREÃ‡OS */
+
+        .pricing-section {
+            padding: 3rem 0;
+            background-color: #fff;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #dc2626;
+            text-transform: uppercase;
+            position: relative;
+            max-width: 48rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, #dc2626, #ef4444);
+            border-radius: 0.25rem;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .package-card {
+            position: relative;
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(239, 68, 68, 0.2);
+        }
+
+        .package-card.popular {
+            transform: scale(1.05);
+            /* Destaque para o plano popular */
+        }
+
+        .badge {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #ef4444;
+            color: #fff;
+            text-align: center;
+            padding: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .package-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding-top: 40px;
+            /* EspaÃ§o para o badge */
+        }
+
+        .package-image-container {
+            margin: 20px auto;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .package-card:hover .package-image-container {
+            transform: scale(1.05);
+        }
+
+        .package-image {
+            max-width: 200px;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        .price-section {
+            text-align: center;
+            margin: 12px 0;
+            padding: 20px 0;
+            border-top: 1px dashed rgba(0, 0, 0, 0.15);
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.15);
+        }
+
+        .price-per-bottle {
+            font-size: 36px;
+            font-weight: 900;
+            color: #333;
+        }
+
+        .price-per-bottle span {
+            font-size: 14px;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .total-price {
+            color: #666;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        .savings-info,
+        .shipping-info {
+            color: #ef4444;
+            font-weight: 400;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0 0 10px;
+            margin: 10px 0;
+            text-align: center;
+            flex: 1;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.15);
+        }
+
+        .features-list li {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 6px;
+            color: #333;
+            font-size: 14px;
+            width: 100%;
+            padding: 2px 0;
+        }
+
+        .features-list li span {
+            color: #ef4444;
+            margin-right: 8px;
+        }
+
+        .package-footer {
+            margin-top: auto;
+            padding-top: 12px;
+        }
+
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .payment-methods img {
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .buy-button {
+            width: 100%;
+            background-color: #ef4444;
+            color: #fff;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(239, 68, 68, 0.2);
+        }
+
+        .buy-button:hover {
+            background-color: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        /* MEDIA QUERIES PARA RESPONSIVIDADE */
+
+        @media (min-width: 768px) {
+            .today-nav {
+                display: flex;
+            }
+
+            .today-signin-btn {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 1.875rem;
+            }
+
+            .hero-content .subtitle {
+                font-size: 1.125rem;
+            }
+
+            .pricing-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .package-card.popular {
+                order: -1;
+                /* Mover para o inÃ­cio */
+            }
+        }
+
+        #fb-comments {
+            font-family: "Segoe UI Historic", "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            width: 100%;
+            margin: auto;
+        }
+
+        #fb-comments .fb-heading {
+            margin: 2.125em 0 0.625em;
+            font-size: 1.1em;
+            color: #555;
+            font-weight: 400;
+            text-align: left;
+        }
+
+        #fb-comments .comments-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25em;
+            border: 0.0625em solid #e9ebee;
+            border-radius: 1.25em;
+            padding: 1.25em 1.25em 0;
+        }
+
+        #fb-comments .comment {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            gap: 0.625em;
+        }
+
+
+        #fb-comments .comment.answer {
+            margin-left: 3.625em;
+            max-width: calc(100% - 3.625em);
+            margin-bottom: 0.75em;
+        }
+
+        #fb-comments .comment.answer+.answer {
+            margin-top: -0.75em;
+        }
+
+        #fb-comments .comment .user-avatar {
+            max-width: 3em;
+            max-height: 3em;
+            border-radius: 1.5625em;
+            -o-object-fit: cover;
+            object-fit: cover;
+        }
+
+        #fb-comments .comment .comment-data {
+            width: 100%;
+        }
+
+        #fb-comments .comment .comment-data .user {
+            font-weight: 400;
+            color: #050505;
+            border-radius: 0.75em;
+            background-color: #f0f2f5;
+            padding: 0.375em 0.75em 0.75em;
+        }
+
+        #fb-comments .comment .comment-data .user .name {
+            margin: 0;
+            color: #365899;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            max-width: -webkit-max-content;
+            max-width: -moz-max-content;
+            max-width: max-content;
+        }
+
+        #fb-comments .comment .comment-data .user .text {
+            margin: 0;
+            font-weight: 400;
+            font-size: 16px;
+            color: #050505;
+            width: fit-content;
+            text-align: left;
+        }
+
+        #fb-comments .comment .comment-data .buttons {
+            margin: 0.125em 0 0 0.75em;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0.3125em;
+        }
+
+        #fb-comments .comment .comment-data .buttons time,
+        #fb-comments .comment .comment-data .buttons like,
+        #fb-comments .comment .comment-data .buttons answer,
+        #fb-comments .comment .comment-data .buttons span {
+            font-size: 0.80em;
+            color: #888;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        #fb-comments .comment .comment-data .buttons like,
+        #fb-comments .comment .comment-data .buttons answer {
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        #fb-comments .comment .comment-data .buttons like[liked] {
+            color: #365899;
+        }
+
+        #fb-comments .comment .comment-data .buttons answer {
+            cursor: default;
+            position: relative;
+        }
+
+        #fb-comments .comment .comment-data .buttons answer:hover::after {
+            content: "You cannot comment on this post";
+            position: absolute;
+            left: 50%;
+            top: -0.625em;
+            width: 11.25em;
+            background-color: #f0f2f5;
+            color: #4c4c4c;
+            transform: translate(-50%, -100%);
+            z-index: 10;
+            border-radius: 0.25em;
+            padding: 0.375em;
+            text-align: center;
+            font-weight: 400;
+            box-shadow: 0.125em 0.125em 0.5em 0.125em rgba(0, 0, 0, 0.1803921569);
+        }
+
+        #fb-comments .comment .comment-data .buttons answer:hover::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: -0.625em;
+            width: 0;
+            height: 0;
+            border-left: 0.5em solid rgba(0, 0, 0, 0);
+            border-right: 0.5em solid rgba(0, 0, 0, 0);
+            border-top: 0.5em solid #f0f2f5;
+            z-index: 11;
+            transform: translateX(-50%);
+            filter: drop-shadow(0 0.1875em 0.125em rgba(0, 0, 0, 0.1));
+        }
+
+        #fb-comments .comment likes {
+            position: absolute;
+            bottom: -0.625em;
+            right: 0;
+            background-color: #fff;
+            border: 0.125em solid #eaebef;
+            display: flex;
+            align-items: center;
+            font-size: 0.875em;
+            line-height: 1;
+            color: #888;
+            border-radius: 6.25em;
+            padding: 0.0625em 0.25em 0.0625em 0;
+        }
+
+        #fb-comments .comment likes::before {
+            content: url('https://i.postimg.cc/3xg2mdqD/likes.webp');
+            cursor: pointer;
+        }
+
+        #fb-comments .comments-closed {
+            font-size: 0.875em;
+            font-weight: 600;
+            text-align: center;
+            margin: 0.9375em 0 5px;
+            color: #555;
+        }
+
+        @media (min-width: 576px) {
+            #fb-comments {
+                font-size: 16px;
+            }
+
+            #fb-comments .comment likes {
+                bottom: 0;
+            }
+        }
+    </style>
+    <script>
+        let already_runned = false;
+
+        function getParams() {
+            return new URLSearchParams(window.location.search).toString();
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            if (!already_runned) {
+                already_runned = true;
+                let params = getParams();
+                if (params) {
+                    document.querySelectorAll("a").forEach(function (e) {
+                        if (e.href) {
+                            if (e.href.includes("?")) {
+                                e.href += "&" + params;
+                            } else {
+                                e.href += "?" + params;
+                            }
+                        }
+                    });
+                    document.querySelectorAll("iframe").forEach(function (e) {
+                        if (e.src) {
+                            if (e.src.includes("?")) {
+                                e.src += "&" + params;
+                            } else {
+                                e.src += "?" + params;
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+    <script>
+        new OcuExternal();
+    </script>
+
+    <script>
+        ! function (i, n) {
+            i._plt = i._plt || (n && n.timeOrigin ? n.timeOrigin + n.now() : Date.now())
+        }(window, performance);
+    </script>
+
+
+    <script>!function (i, n) { i._plt = i._plt || (n && n.timeOrigin ? n.timeOrigin + n.now() : Date.now()) }(window, performance);</script>
+    <link rel="preload"
+        href="https://scripts.converteai.net/ccc924ed-bf26-4a1d-b054-0afb8a3143cf/players/69b086773e201d76893b2975/v4/player.js"
+        as="script">
+    <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+    <link rel="preload"
+        href="https://cdn.converteai.net/ccc924ed-bf26-4a1d-b054-0afb8a3143cf/69b086164e2d74544065d1e6/main.m3u8"
+        as="fetch">
+    <link rel="dns-prefetch" href="https://cdn.converteai.net">
+    <link rel="dns-prefetch" href="https://scripts.converteai.net">
+    <link rel="dns-prefetch" href="https://images.converteai.net">
+    <link rel="dns-prefetch" href="https://api.vturb.com.br">
+    <script>
+        window.pixelId = "69b8978161741cc4bba447ad";
+        var a = document.createElement("script");
+        a.setAttribute("async", "");
+        a.setAttribute("defer", "");
+        a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+        document.head.appendChild(a);
+    </script>
+    <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck
+        data-utmify-prevent-subids async defer></script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+
+        fbq('init', '1659088432182654');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1659088432182654&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <script>
+        window.pixelId = "69db037ec18ff99189b39592";
+        var a = document.createElement("script");
+        a.setAttribute("async", "");
+        a.setAttribute("defer", "");
+        a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+        document.head.appendChild(a);
+    </script>
+</head>
+
+<body>
+    <main>
+        <header class="today-header">
+            <div class="today-header-container">
+                <div class="today-header-left">
+                    <div class="today-logo">
+                        <img src="https://i.postimg.cc/gjrx5rn8/today.jpg" alt="TODAY" class="today-logo-img">
+                    </div>
+                </div>
+                <nav class="today-nav">
+                    <span>On the Show</span>
+                    <span>Shop</span>
+                    <span>Health</span>
+                    <span>Food</span>
+                    <span>Life</span>
+                </nav>
+                <div class="today-header-right">
+                    <button class="today-search-btn" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <span class="today-signin-btn">Sign In</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Dr. Oz Reveals the Gelatin Recipe to Lose 17 Pounds Before May Ends
+                    </h1>
+                    <div class="video-container">
+                        <div>
+                            <div id="fullscreenDi" class="h-0 hidden"></div>
+                            <vturb-smartplayer id="vid-69f78525fe543f7790585f1e"
+                                style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"></vturb-smartplayer>
+                            <script
+                                type="text/javascript"> var s = document.createElement("script"); s.src = "https://scripts.converteai.net/ccc924ed-bf26-4a1d-b054-0afb8a3143cf/players/69f78525fe543f7790585f1e/v4/player.js", s.async = !0, document.head.appendChild(s); </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+        </iframe>
+
+        <div class="tags-section">
+            <p class="tags-title">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
+                    </path>
+                </svg> Stay updated with TODAY's health reports
+            </p>
+            <div class="tags-container">
+                <span class="tag">#NaturalRemedies</span>
+                <span class="tag">#HealthBreakthrough</span>
+                <span class="tag">#TODAYExclusive</span>
+            </div>
+        </div>
+        <div id="fb-comments" class="container mb-4">
+            <div class="comments-container">
+
+                <div class="comment" data-comment-id="1">
+                    <img decoding="async" class="user-avatar" src="https://i.postimg.cc/c4gWbfL0/user1.png" alt="">
+                    <div class="comment-data">
+                        <div class="user user-background">
+                            <p class="name">Sarah Smith</p>
+                            <p class="text">
+                                OMG! My doctor didn't believe me. I lost weight with this gelatin trick and he thought I was dieting.
+                            </p>
+                        </div>
+                        <div class="buttons">
+                            <like>Like</like><span>·</span>
+                            <answer>Reply</answer><span>·</span><time>2h</time>
+                        </div>
+                    </div>
+                    <likes>23</likes>
+                </div>
+
+                <div class="comment answer" data-comment-id="1a">
+                    <img decoding="async" class="user-avatar" src="https://i.postimg.cc/t4nhJvRk/user1_1.png" alt="">
+                    <div class="comment-data">
+                        <div class="user user-background">
+                            <p class="name">Jennifer Taylor</p>
+                            <p class="text"><span style="color: blue;">Sarah Smith</span> Girl, I lost weight in just one week! This gelatin trick is unbelievable!</p>
+                        </div>
+                        <div class="buttons">
+                            <like>Like</like><span>·</span>
+                            <answer>Reply</answer><span>·</span><time>35 min</time>
+                        </div>
+                    </div>
+                    <likes>17</likes>
+                </div>
+
+                <div class="comment" data-comment-id="2">
+                    <img decoding="async" class="user-avatar" src="https://i.postimg.cc/mkr9s86y/user9.png" alt="">
+                    <div class="comment-data">
+                        <div class="user user-background">
+                            <p class="name">Olivia Moore</p>
+                            <p class="text">
+                                I've been using this gelatin trick for a little over 3 weeks, and I'm noticing changes in my body! Even my husband noticed and complimented me today!
+                            </p>
+                        </div>
+                        <div class="buttons">
+                            <like>Like</like><span>·</span>
+                            <answer>Reply</answer><span>·</span><time>7 min</time>
+                        </div>
+                    </div>
+                    <likes>11</likes>
+                </div>
+
+                <div class="comment" data-comment-id="3">
+                    <img decoding="async" class="user-avatar" src="https://i.postimg.cc/YScQWNjD/user1_3.png" alt="">
+                    <div class="comment-data">
+                        <div class="user user-background">
+                            <p class="name">Jessica Brown</p>
+                            <p class="text">
+                                Finally, someone explained the gelatin recipe without all that medical jargon! I'm going to start the gelatin trick this morning — thanks for the clear explanation!
+                            </p>
+                        </div>
+                        <div class="buttons">
+                            <like>Like</like><span>·</span>
+                            <answer>Reply</answer><span>·</span><time>6 min</time>
+                        </div>
+                    </div>
+                    <likes>32</likes>
+                </div>
+
+                <div class="comment" data-comment-id="4">
+                    <img decoding="async" class="user-avatar" src="https://i.postimg.cc/t4nhJvRk/user1_1.png" alt="">
+                    <div class="comment-data">
+                        <div class="user user-background">
+                            <p class="name">Jennifer Taylor</p>
+                            <p class="text">
+                                I used to have binge eating disorder. But after I started using gelatin, my cravings for sweets decreased. I've already lost weight with this trick—it's an amazing feeling!
+                            </p>
+                        </div>
+                        <div class="buttons">
+                            <like>Like</like><span>·</span>
+                            <answer>Reply</answer><span>·</span><time>5 min</time>
+                        </div>
+                    </div>
+                    <likes>6</likes>
+                </div>
+
+                <div class="comment answer" data-comment-id="4a">
+                    <img decoding="async" class="user-avatar" src="https://i.postimg.cc/N01m7yHB/user2.png" alt="">
+                    <div class="comment-data">
+                        <div class="user user-background">
+                            <p class="name">Emily Johnson</p>
+                            <p class="text"><span style="color: blue;">Jennifer Taylor</span> That’s insane! Did you
+                                change anything else or just the gelatin trick?</p>
+                        </div>
+                        <div class="buttons">
+                            <like>Like</like><span>·</span>
+                            <answer>Reply</answer><span>·</span><time>1h</time>
+                        </div>
+                    </div>
+                    <likes>34</likes>
+                </div>
+
+                <div class="comment answer" data-comment-id="4b">
+                    <img decoding="async" class="user-avatar" src="https://i.postimg.cc/sgGpxHf9/user1_1.png" alt="">
+                    <div class="comment-data">
+                        <div class="user user-background">
+                            <p class="name">Jennifer Taylor</p>
+                            <p class="text"><span style="color: blue;">Emily Johnson</span> Nothing more — just the gelatin trick! Try it out and tell me what you think!</p>
+                        </div>
+                        <div class="buttons">
+                            <like>Like</like><span>·</span>
+                            <answer>Reply</answer><span>·</span><time>1h</time>
+                        </div>
+                    </div>
+                    <likes>32</likes>
+                </div>
+
+                <div class="comment" data-comment-id="5">
+                    <img decoding="async" class="user-avatar" src="https://i.postimg.cc/d1wdWq2m/user2_2.png" alt="">
+                    <div class="comment-data">
+                        <div class="user user-background">
+                            <p class="name">Ashley Davis</p>
+                            <p class="text">
+                                Does anyone know if this gelatin trick really works? I’m extremely overweight and
+                                feeling desperate!
+                            </p>
+                        </div>
+                        <div class="buttons">
+                            <like>Like</like><span>·</span>
+                            <answer>Reply</answer><span>·</span><time>1h</time>
+                        </div>
+                    </div>
+                    <likes>34</likes>
+                </div>
+
+                <div class="comment answer" data-comment-id="5a">
+                    <img decoding="async" class="user-avatar" src="https://i.postimg.cc/9fcvC9Ch/user9_1.png" alt="">
+                    <div class="comment-data">
+                        <div class="user user-background">
+                            <p class="name">Morgan Rose</p>
+                            <p class="text"><span style="color: blue;">Ashley Davis</span> Yes! The testimonials seem true, as do the results I'm seeing. My fat is decreasing thanks to this gelatin trick. Try it!</p>
+                        </div>
+                        <div class="buttons">
+                            <like>Like</like><span>·</span>
+                            <answer>Reply</answer><span>·</span><time>1h</time>
+                        </div>
+                    </div>
+                    <likes>31</likes>
+                </div>
+
+                <div class="comment" data-comment-id="6">
+                    <img decoding="async" class="user-avatar" src="https://i.postimg.cc/zB8WdJwm/user3.png" alt="">
+                    <div class="comment-data">
+                        <div class="user user-background">
+                            <p class="name">Natalie Clark</p>
+                            <p class="text">
+                                This is the most honest solution I've ever seen. No long videos, no upselling—just the simple gelatin trick.
+
+Thank you so much!
+                            </p>
+                        </div>
+                        <div class="buttons">
+                            <like>Like</like><span>·</span>
+                            <answer>Reply</answer><span>·</span><time>1h</time>
+                        </div>
+                    </div>
+                    <likes>54</likes>
+                </div>
+
+                <div class="comment" data-comment-id="7">
+                    <img decoding="async" class="user-avatar" src="https://i.postimg.cc/PxyD9BKP/user3_2.png" alt="">
+                    <div class="comment-data">
+                        <div class="user user-background">
+                            <p class="name">Chloe Garcia</p>
+                            <p class="text">
+                                After 3 weeks of using the gelatin trick, I already feel different. I've lost weight and I already feel lighter and more beautiful!
+                            </p>
+                        </div>
+                        <div class="buttons">
+                            <like>Like</like><span>·</span>
+                            <answer>Reply</answer><span>·</span><time>1h</time>
+                        </div>
+                    </div>
+                    <likes>59</likes>
+                </div>
+
+                <h4 class="comments-closed">This post is no longer receiving comments!</h4>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>
